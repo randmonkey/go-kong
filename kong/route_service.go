@@ -43,7 +43,8 @@ func (s *RouteService) Create(ctx context.Context,
 	if route == nil {
 		return nil, fmt.Errorf("cannot create a nil route")
 	}
-
+	b, _ := json.Marshal(route)
+	fmt.Printf("=== Create route %s\n", string(b))
 	endpoint := "/routes"
 	method := "POST"
 	if route.ID != nil {
@@ -111,7 +112,8 @@ func (s *RouteService) Update(ctx context.Context,
 	if isEmptyString(route.ID) {
 		return nil, fmt.Errorf("ID cannot be nil for Update operation")
 	}
-
+	b, _ := json.Marshal(route)
+	fmt.Printf("=== Update route %s\n", string(b))
 	endpoint := fmt.Sprintf("/routes/%v", *route.ID)
 	req, err := s.client.NewRequest("PATCH", endpoint, nil, route)
 	if err != nil {
